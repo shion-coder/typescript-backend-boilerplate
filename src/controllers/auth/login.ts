@@ -2,33 +2,29 @@ import { Request, Response } from 'express';
 
 import { User } from 'src/model';
 
+import { asyncHandler } from 'src/middlewares';
 import { validateLogin } from 'src/validation';
 import { LoginData } from 'src/types';
 
 /* -------------------------------------------------------------------------- */
 
-export const login = async (req: Request, res: Response): Promise<Response> => {
-  /**
-   * Validate input
-   */
+export const login = asyncHandler(
+  async (req: Request, res: Response): Promise<Response> => {
+    /**
+     * Validate input
+     */
 
-  const { email = '', password = '' }: LoginData = req.body;
-
-  try {
+    const { email = '', password = '' }: LoginData = req.body;
     const { errors, isValid } = await validateLogin({ email, password });
 
     if (!isValid) {
       return res.json({ errors });
     }
-  } catch {
-    return res.status(500).json({ error: 'Error validating login' });
-  }
 
-  /**
-   * Get user & return token
-   */
+    /**
+     * Get user & return token
+     */
 
-  try {
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -36,7 +32,5 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     }
 
     return res.json({ token: user.getToken() });
-  } catch {
-    return res.status(500).json({ error: 'Error finding user' });
-  }
-};
+  },
+);
