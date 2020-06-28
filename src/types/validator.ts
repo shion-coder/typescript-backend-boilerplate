@@ -1,4 +1,4 @@
-import { IUserModel } from 'src/types';
+import { IUser } from 'src/types';
 
 /* -------------------------------------------------------------------------- */
 
@@ -8,28 +8,28 @@ export interface Validator<T> {
 }
 
 export interface LoginData {
-  email: IUserModel['email'];
-  password: IUserModel['password'];
+  email: IUser['email'];
+  password: IUser['password'];
 }
 
 export interface LoginError {
-  email?: IUserModel['email'];
-  password?: IUserModel['password'];
+  email?: IUser['email'];
+  password?: IUser['password'];
 }
 
 export interface RegisterData {
-  firstName: IUserModel['firstName'];
-  lastName?: IUserModel['lastName'];
-  username: IUserModel['username'];
-  email: IUserModel['email'];
-  password: IUserModel['password'];
-  confirmPassword: IUserModel['password'];
+  firstName: IUser['firstName'];
+  lastName?: IUser['lastName'];
+  username: IUser['username'];
+  email: IUser['email'];
+  password: IUser['password'];
+  confirmPassword: IUser['password'];
 }
 
 export interface RegisterError {
-  firstName?: IUserModel['firstName'];
-  username?: IUserModel['username'];
-  email?: IUserModel['email'];
-  password?: IUserModel['password'];
-  confirmPassword?: IUserModel['password'];
+  firstName?: IUser['firstName'];
+  username?: IUser['username'];
+  email?: IUser['email'];
+  password?: IUser['password'];
+  confirmPassword?: IUser['password'];
 }

@@ -3,14 +3,14 @@ import isEmpty from 'is-empty';
 
 import { User } from 'src/model';
 
-import { Validator, LoginData, LoginError, IUserModel } from 'src/types';
+import { Validator, LoginData, LoginError, IUser } from 'src/types';
 
 /* -------------------------------------------------------------------------- */
 
 export const validateLogin = async ({ email, password }: LoginData): Promise<Validator<LoginError>> => {
   const errors = {} as LoginError;
 
-  let existingEmail: IUserModel | null = null;
+  let existingEmail: IUser | null = null;
   let isMatch = false;
 
   /**

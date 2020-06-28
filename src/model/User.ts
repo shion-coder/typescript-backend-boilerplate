@@ -2,7 +2,7 @@ import { Schema, Model, HookNextFunction, model } from 'mongoose';
 import { genSalt, hash, compare } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { IUserModel, TokenPayload } from 'src/types';
+import { IUser, TokenPayload } from 'src/types';
 import { JWT_SECRET, JWT_EXPIRE } from 'src/config';
 
 /* -------------------------------------------------------------------------- */
@@ -51,7 +51,7 @@ const userSchema: Schema = new Schema({
  * Hass pasword before save user
  */
 
-userSchema.pre<IUserModel>('save', async function (next: HookNextFunction): Promise<void> {
+userSchema.pre<IUser>('save', async function (next: HookNextFunction): Promise<void> {
   if (this.password && this.isModified('password')) {
     try {
       const salt = await genSalt(10);
@@ -96,7 +96,7 @@ userSchema.methods.getToken = function (): string {
  * Get fullname
  */
 
-userSchema.virtual('fullName').get(function (this: IUserModel): string {
+userSchema.virtual('fullName').get(function (this: IUser): string {
   if (!this.lastName) {
     return this.firstName;
   }
@@ -104,4 +104,4 @@ userSchema.virtual('fullName').get(function (this: IUserModel): string {
   return `${this.firstName} ${this.lastName}`;
 });
 
-export const User: Model<IUserModel> = model<IUserModel>('User', userSchema);
+export const User: Model<IUser> = model<IUser>('User', userSchema);

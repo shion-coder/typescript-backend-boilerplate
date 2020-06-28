@@ -3,7 +3,7 @@ import isEmpty from 'is-empty';
 
 import { User } from 'src/model';
 
-import { Validator, RegisterData, RegisterError, IUserModel } from 'src/types';
+import { Validator, RegisterData, RegisterError, IUser } from 'src/types';
 
 /* -------------------------------------------------------------------------- */
 
@@ -16,8 +16,8 @@ export const validateRegister = async ({
 }: RegisterData): Promise<Validator<RegisterError>> => {
   const errors = {} as RegisterError;
 
-  let existingUsername: IUserModel | null = null;
-  let existingEmail: IUserModel | null = null;
+  let existingUsername: IUser | null = null;
+  let existingEmail: IUser | null = null;
 
   /**
    * Find existing username & email

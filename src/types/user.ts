@@ -10,7 +10,7 @@ interface IUserSchema {
   password: string;
 }
 
-export interface IUserModel extends IUserSchema, Document {
+export interface IUser extends IUserSchema, Document {
   comparePassword: (password: string) => Promise<boolean>;
   getToken: () => string;
   fullName?: string;
