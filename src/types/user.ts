@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 
 /* -------------------------------------------------------------------------- */
 
-interface IUser {
+interface IUserSchema {
   firstName: string;
   lastName?: string;
   username: string;
@@ -10,7 +10,8 @@ interface IUser {
   password: string;
 }
 
-export interface IUserModel extends IUser, Document {
+export interface IUserModel extends IUserSchema, Document {
   comparePassword: (password: string) => Promise<boolean>;
   getToken: () => string;
+  fullName?: string;
 }

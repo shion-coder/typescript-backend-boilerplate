@@ -92,4 +92,16 @@ userSchema.methods.getToken = function (): string {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRE });
 };
 
+/**
+ * Get fullname
+ */
+
+userSchema.virtual('fullName').get(function (this: IUserModel): string {
+  if (!this.lastName) {
+    return this.firstName;
+  }
+
+  return `${this.firstName} ${this.lastName}`;
+});
+
 export const User: Model<IUserModel> = model<IUserModel>('User', userSchema);
