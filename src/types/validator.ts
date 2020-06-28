@@ -1,31 +1,35 @@
+import { IUserModel } from 'src/types';
+
+/* -------------------------------------------------------------------------- */
+
 export interface Validator<T> {
   errors: T;
   isValid: boolean;
 }
 
 export interface LoginData {
-  email: string;
-  password: string;
+  email: IUserModel['email'];
+  password: IUserModel['password'];
 }
 
 export interface LoginError {
-  email?: string;
-  password?: string;
+  email?: IUserModel['email'];
+  password?: IUserModel['password'];
 }
 
 export interface RegisterData {
-  firstName: string;
-  lastName?: string;
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  firstName: IUserModel['firstName'];
+  lastName?: IUserModel['lastName'];
+  username: IUserModel['username'];
+  email: IUserModel['email'];
+  password: IUserModel['password'];
+  confirmPassword: IUserModel['password'];
 }
 
 export interface RegisterError {
-  firstName?: string;
-  username?: string;
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
+  firstName?: IUserModel['firstName'];
+  username?: IUserModel['username'];
+  email?: IUserModel['email'];
+  password?: IUserModel['password'];
+  confirmPassword?: IUserModel['password'];
 }

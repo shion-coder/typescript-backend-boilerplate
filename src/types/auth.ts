@@ -1,10 +1,12 @@
 import { Request } from 'express';
 
+import { IUserModel } from 'src/types';
+
 /* -------------------------------------------------------------------------- */
 
 export interface TokenPayload {
-  id: string;
-  email: string;
+  id: IUserModel['id'];
+  email: IUserModel['email'];
 }
 
 export interface AuthRequest extends Request {
