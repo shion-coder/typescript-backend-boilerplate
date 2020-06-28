@@ -12,18 +12,18 @@ export const authRouter = Router();
  * @desc    Register user & Return JWT Token
  * @access  Public
  */
-authRouter.post('/register', register);
+authRouter.route('/register').post(register);
 
 /**
  * @route   POST /api/v1/users/login
  * @desc    Login & Return JWT Token
  * @access  Public
  */
-authRouter.post('/login', login);
+authRouter.route('/login').post(login);
 
 /**
  * @route   Get /api/v1/users/me
  * @desc    Verify token & return user data
  * @access  Private
  */
-authRouter.get('/me', verifyToken, me);
+authRouter.route('/me').get(verifyToken, me);
