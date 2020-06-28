@@ -51,7 +51,7 @@ const userSchema: Schema = new Schema({
  * Hass pasword before save user
  */
 
-userSchema.pre<IUser>('save', async function (next: HookNextFunction): Promise<void> {
+userSchema.pre('save', async function (this: IUser, next: HookNextFunction): Promise<void> {
   if (this.password && this.isModified('password')) {
     try {
       const salt = await genSalt(10);
@@ -66,10 +66,22 @@ userSchema.pre<IUser>('save', async function (next: HookNextFunction): Promise<v
 });
 
 /**
+ * Get fullname
+ */
+
+userSchema.virtual('fullName').get(function (this: IUser): string {
+  if (!this.lastName) {
+    return this.firstName;
+  }
+
+  return `${this.firstName} ${this.lastName}`;
+});
+
+/**
  * Compare passsword
  */
 
-userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
+userSchema.methods.comparePassword = async function (this: IUser, password: string): Promise<boolean> {
   try {
     const isMatch: boolean = await compare(password, this.password);
 
@@ -83,7 +95,7 @@ userSchema.methods.comparePassword = async function (password: string): Promise<
  * Get token
  */
 
-userSchema.methods.getToken = function (): string {
+userSchema.methods.getToken = function (this: IUser): string {
   const payload: TokenPayload = {
     id: this.id,
     email: this.email,
@@ -91,17 +103,5 @@ userSchema.methods.getToken = function (): string {
 
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRE });
 };
-
-/**
- * Get fullname
- */
-
-userSchema.virtual('fullName').get(function (this: IUser): string {
-  if (!this.lastName) {
-    return this.firstName;
-  }
-
-  return `${this.firstName} ${this.lastName}`;
-});
 
 export const User: Model<IUser> = model<IUser>('User', userSchema);
