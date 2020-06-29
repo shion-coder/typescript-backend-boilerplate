@@ -1,12 +1,17 @@
 import { app } from 'src/app';
-import { connectToDb } from 'src/database';
+import { connectDb } from 'src/database';
 
 import { PORT } from 'src/config';
 
 /* -------------------------------------------------------------------------- */
 
-connectToDb();
+/* Connect database */
+connectDb();
+
+/**
+ * Setup server
+ */
 
 app.listen(PORT, () => {
-  console.log(`\x1b[32m[Express] Server ready at http://localhost:${PORT}`);
+  console.log('\x1b[32m' + `[Express] Server listening on port ${PORT}`);
 });

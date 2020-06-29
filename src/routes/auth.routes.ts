@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { verifyToken } from 'src/middlewares/auth';
+import { verifyToken } from 'src/middlewares/verify-token';
 import { register, login, me } from 'src/controllers/auth';
 
 /* -------------------------------------------------------------------------- */
